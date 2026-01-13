@@ -1,39 +1,43 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const fs = require("fs");
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// ضبط Views
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+// صفحة الإدارة
+app.get("/admin", (req, res) => {
+  res.render("admin", { companies });
+});
 
-// تحميل البيانات
-const companies = JSON.parse(fs.readFileSync(path.join(__dirname, "data/companies.json")));
+// إضافة شركة
+app.post("/admin/addCompany", (req, res) => {
+  const { name } = req.body;
+  companies.push({ name, employees: [] });
+  saveData();
+  res.send(`Company "${name}" added successfully!`);
+});
 
-// دالة لحساب الأيام بين تاريخ اليوم وتاريخ الانتهاء
-function calculateDaysRemaining(expiryDate) {
-  const today = new Date();
-  const expiry = new Date(expiryDate);
-  const diffTime = expiry - today;
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // فرق بالأيام
+// إضافة موظف
+app.post("/admin/addEmployee", (req, res) => {
+  const { company, fullName, idNumber, passportNumber, workCardNumber, personalNumber, unifiedNumber, visaNumber } = req.body;
+  const comp = companies.find(c => c.name === company);
+  if (!comp) return res.send("Company not found!");
+  comp.employees.push({ fullName, idNumber, passportNumber, workCardNumber, personalNumber, unifiedNumber, visaNumber, documents: [] });
+  saveData();
+  res.send(`Employee "${fullName}" added successfully!`);
+});
+
+// إضافة مستند
+app.post("/admin/addDocument", (req, res) => {
+  const { company, employee, name, issueDate, expiryDate } = req.body;
+  const comp = companies.find(c => c.name === company);
+  if (!comp) return res.send("Company not found!");
+  const emp = comp.employees.find(e => e.fullName === employee);
+  if (!emp) return res.send("Employee not found!");
+  emp.documents.push({ name, issueDate, expiryDate });
+  saveData();
+  res.send(`Document "${name}" added to employee "${employee}" successfully!`);
+});
+
+// حفظ البيانات على companies.json
+function saveData() {
+  fs.writeFileSync("./data/companies.json", JSON.stringify(companies, null, 2));
 }
-
-// تجهيز بيانات إضافية لكل مستند لكل موظف
-companies.forEach(company => {
-  company.employees.forEach(emp => {
-    emp.documents.forEach(doc => {
-      doc.daysRemaining = calculateDaysRemaining(doc.expiryDate);
-      doc.expiringSoon = doc.daysRemaining <= 30 && doc.daysRemaining >= 0;
-    });
-  });
-});
-
-// الصفحة الرئيسية
-app.get("/", (req, res) => {
-  res.render("index", { companies });
-});
-
-const port = process.env.PORT || 10000;
-app.listen(port, () => {
-  console.log("Server running on port " + port);
-});

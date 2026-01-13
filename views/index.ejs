@@ -8,7 +8,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // صفحة رئيسية
 app.get("/", (req, res) => {
-  res.render("index", { message: "مرحبًا بك في نظام الموظفين" });
+  res.render("index", { message: "Employee System is working!" });
 });
 
 const port = process.env.PORT || 3000;

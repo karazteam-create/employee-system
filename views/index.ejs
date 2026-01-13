@@ -1,17 +1,54 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-
-// ضبط مجلد الـ Views
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-// صفحة رئيسية
-app.get("/", (req, res) => {
-  res.render("index", { message: "Employee System is working!" });
-});
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("Server running on port " + port);
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee System - Companies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Companies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Number of Employees</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Example Company 1</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>Example Company 2</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -44,7 +44,10 @@
     <h1>Company & Employee Management</h1>
 
     <% companies.forEach(company => { %>
-        <h2><%= company.name %></h2>
+        <h2>
+            <%= company.name %> 
+            (Number of Employees: <%= company.employees.length %>)
+        </h2>
         <table>
             <thead>
                 <tr>

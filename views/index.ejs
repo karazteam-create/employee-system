@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Employee System - Companies</title>
+    <title>Company & Employee Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             text-align: center;
         }
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
             background-color: #fff;
@@ -35,27 +35,43 @@
         tr:hover {
             background-color: #ddd;
         }
+        h2 {
+            margin-left: 5%;
+        }
     </style>
 </head>
 <body>
     <h1>Company & Employee Management</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Company Name</th>
-                <th>Number of Employees</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Example Company 1</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>Example Company 2</td>
-                <td>3</td>
-            </tr>
-        </tbody>
-    </table>
+
+    <% companies.forEach(company => { %>
+        <h2><%= company.name %></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>ID Number</th>
+                    <th>Passport Number</th>
+                    <th>Work Card Number</th>
+                    <th>Personal Number</th>
+                    <th>Unified Number</th>
+                    <th>Visa Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% company.employees.forEach(emp => { %>
+                    <tr>
+                        <td><%= emp.fullName %></td>
+                        <td><%= emp.idNumber %></td>
+                        <td><%= emp.passportNumber %></td>
+                        <td><%= emp.workCardNumber %></td>
+                        <td><%= emp.personalNumber %></td>
+                        <td><%= emp.unifiedNumber %></td>
+                        <td><%= emp.visaNumber %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% }) %>
+
 </body>
 </html>

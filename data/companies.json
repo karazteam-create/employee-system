@@ -9,7 +9,19 @@
         "workCardNumber": "W12345",
         "personalNumber": "P123456",
         "unifiedNumber": "U123456",
-        "visaNumber": "V12345"
+        "visaNumber": "V12345",
+        "documents": [
+          {
+            "name": "Passport",
+            "issueDate": "2025-01-01",
+            "expiryDate": "2026-01-20"
+          },
+          {
+            "name": "Work Card",
+            "issueDate": "2024-06-01",
+            "expiryDate": "2026-06-01"
+          }
+        ]
       },
       {
         "fullName": "Sara Mohamed",
@@ -18,21 +30,14 @@
         "workCardNumber": "W54321",
         "personalNumber": "P654321",
         "unifiedNumber": "U654321",
-        "visaNumber": "V54321"
-      }
-    ]
-  },
-  {
-    "name": "Example Company 2",
-    "employees": [
-      {
-        "fullName": "Ali Hassan",
-        "idNumber": "111222333",
-        "passportNumber": "C1112223",
-        "workCardNumber": "W11223",
-        "personalNumber": "P112233",
-        "unifiedNumber": "U112233",
-        "visaNumber": "V11223"
+        "visaNumber": "V54321",
+        "documents": [
+          {
+            "name": "Passport",
+            "issueDate": "2024-12-01",
+            "expiryDate": "2025-12-31"
+          }
+        ]
       }
     ]
   }

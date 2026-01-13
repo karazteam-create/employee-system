@@ -2,6 +2,11 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// حفظ البيانات على companies.json
+function saveData() {
+  fs.writeFileSync("./data/companies.json", JSON.stringify(companies, null, 2));
+}
+
 // صفحة الإدارة
 app.get("/admin", (req, res) => {
   res.render("admin", { companies });
@@ -36,8 +41,3 @@ app.post("/admin/addDocument", (req, res) => {
   saveData();
   res.send(`Document "${name}" added to employee "${employee}" successfully!`);
 });
-
-// حفظ البيانات على companies.json
-function saveData() {
-  fs.writeFileSync("./data/companies.json", JSON.stringify(companies, null, 2));
-}

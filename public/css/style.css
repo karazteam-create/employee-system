@@ -1,32 +1,50 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    margin: 20px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Employee System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Admin Panel</h1>
 
-h1 {
-    color: #333;
-    text-align: center;
-}
+    <!-- نموذج رفع الوثائق -->
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+        <h2>Upload Document</h2>
+        <label for="companyId">Company:</label>
+        <select name="companyId" id="companyId" required>
+            <% companies.forEach(c => { %>
+                <option value="<%= c.id %>"><%= c.companyName %></option>
+            <% }) %>
+        </select>
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-}
+        <label for="employeeId">Employee:</label>
+        <select name="employeeId" id="employeeId" required>
+            <% companies.forEach(c => { %>
+                <% c.employees.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.name %> (<%= c.companyName %>)</option>
+                <% }) %>
+            <% }) %>
+        </select>
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
+        <label for="docType">Document Type:</label>
+        <select name="docType" id="docType" required>
+            <option value="Passport">Passport</option>
+            <option value="Work Permit">Work Permit</option>
+            <option value="Other">Other</option>
+        </select>
 
-th {
-    background-color: #007BFF;
-    color: #fff;
-}
+        <label for="issueDate">Issue Date:</label>
+        <input type="date" name="issueDate" id="issueDate" required>
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="date" name="expiryDate" id="expiryDate" required>
+
+        <label for="document">Select File:</label>
+        <input type="file" name="document" id="document" required>
+
+        <button type="submit">Upload</button>
+    </form>
+
+</body>
+</html>

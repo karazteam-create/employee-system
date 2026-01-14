@@ -1,20 +1,17 @@
-// ===== Dependencies =====
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ===== View Engine =====
+// View engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
-
-// ===== Body Parser =====
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ===== Load Companies Data =====
+// Load companies data
 const dataPath = path.join(__dirname, "data", "companies.json");
 let companies = [];
 if (fs.existsSync(dataPath)) {
@@ -23,24 +20,22 @@ if (fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, JSON.stringify(companies, null, 2));
 }
 
-// ===== Helper Function =====
+// Helper function
 function saveData() {
   fs.writeFileSync(dataPath, JSON.stringify(companies, null, 2));
 }
 
-// ===== Routes =====
-
-// Home Page - Table view
+// Home page
 app.get("/", (req, res) => {
   res.render("index", { companies });
 });
 
-// Admin Panel
+// Admin panel
 app.get("/admin", (req, res) => {
   res.render("admin", { companies });
 });
 
-// Add Company
+// Add company
 app.post("/admin/addCompany", (req, res) => {
   const { name } = req.body;
   if (!name) return res.send("Company name is required!");
@@ -49,7 +44,7 @@ app.post("/admin/addCompany", (req, res) => {
   res.send(`Company "${name}" added successfully!`);
 });
 
-// Add Employee
+// Add employee
 app.post("/admin/addEmployee", (req, res) => {
   const { company, fullName, idNumber, passportNumber, workCardNumber, personalNumber, unifiedNumber, visaNumber } = req.body;
   const comp = companies.find(c => c.name === company);
@@ -68,7 +63,7 @@ app.post("/admin/addEmployee", (req, res) => {
   res.send(`Employee "${fullName}" added successfully!`);
 });
 
-// Add Document
+// Add document
 app.post("/admin/addDocument", (req, res) => {
   const { company, employee, name, issueDate, expiryDate } = req.body;
   const comp = companies.find(c => c.name === company);
@@ -80,7 +75,6 @@ app.post("/admin/addDocument", (req, res) => {
   res.send(`Document "${name}" added to employee "${employee}" successfully!`);
 });
 
-// ===== Start Server =====
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

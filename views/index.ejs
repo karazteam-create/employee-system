@@ -6,17 +6,33 @@
 </head>
 <body>
 <h1>Companies</h1>
+
+<% companies.forEach(company => { %>
+<h2><%= company.name %></h2>
 <table border="1">
 <tr>
-    <th>Company</th>
-    <th>Number of Employees</th>
+    <th>Employee</th>
+    <th>Nationality</th>
+    <th>Document Type</th>
+    <th>Issue Date</th>
+    <th>Expiry Date</th>
+    <th>Days Remaining</th>
+    <th>Days After Expiry</th>
 </tr>
-<% companies.forEach(c => { %>
+<% company.employees.forEach(emp => { %>
+    <% emp.documents.forEach(doc => { %>
 <tr>
-    <td><%= c.name %></td>
-    <td><%= c.employees %></td>
+    <td><%= emp.name %></td>
+    <td><%= emp.nationality %></td>
+    <td><%= doc.type %></td>
+    <td><%= doc.issue_date %></td>
+    <td><%= doc.expiry_date %></td>
+    <td><%= doc.daysRemaining %></td>
+    <td><%= doc.daysAfterExpiry %></td>
 </tr>
-<% }); %>
+    <% }) %>
+<% }) %>
 </table>
+<% }) %>
 </body>
 </html>

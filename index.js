@@ -1,20 +1,20 @@
-// ====== Dependencies ======
+// ===== Dependencies =====
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ====== View Engine ======
+// ===== View Engine =====
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 
-// ====== Body Parser ======
+// ===== Body Parser =====
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ====== Load Companies Data ======
+// ===== Load Companies Data =====
 const dataPath = path.join(__dirname, "data", "companies.json");
 let companies = [];
 if (fs.existsSync(dataPath)) {
@@ -23,14 +23,14 @@ if (fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, JSON.stringify(companies, null, 2));
 }
 
-// ====== Helper Function ======
+// ===== Helper Function =====
 function saveData() {
   fs.writeFileSync(dataPath, JSON.stringify(companies, null, 2));
 }
 
-// ====== Routes ======
+// ===== Routes =====
 
-// Home Page - Show Table
+// Home Page - Table view
 app.get("/", (req, res) => {
   res.render("index", { companies });
 });
@@ -80,7 +80,7 @@ app.post("/admin/addDocument", (req, res) => {
   res.send(`Document "${name}" added to employee "${employee}" successfully!`);
 });
 
-// ====== Start Server ======
+// ===== Start Server =====
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

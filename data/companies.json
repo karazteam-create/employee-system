@@ -1,4 +1,44 @@
 [
-    { "name": "Example Company 1", "employees": 5, "documents": [] },
-    { "name": "Example Company 2", "employees": 3, "documents": [] }
+  {
+    "name": "Example Company 1",
+    "employees": [
+      {
+        "name": "Ali Ahmed",
+        "nationality": "Egyptian",
+        "documents": [
+          { "type": "Passport", "issue_date": "2023-01-01", "expiry_date": "2026-01-01" },
+          { "type": "Work ID", "issue_date": "2024-01-01", "expiry_date": "2025-12-31" },
+          { "type": "Other", "issue_date": "2023-06-01", "expiry_date": "2024-06-01" }
+        ]
+      },
+      {
+        "name": "Sara Mohamed",
+        "nationality": "Egyptian",
+        "documents": [
+          { "type": "Passport", "issue_date": "2022-05-01", "expiry_date": "2025-05-01" },
+          { "type": "Work ID", "issue_date": "2023-07-01", "expiry_date": "2026-07-01" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Example Company 2",
+    "employees": [
+      {
+        "name": "John Doe",
+        "nationality": "American",
+        "documents": [
+          { "type": "Passport", "issue_date": "2021-03-01", "expiry_date": "2024-03-01" }
+        ]
+      },
+      {
+        "name": "Jane Smith",
+        "nationality": "Canadian",
+        "documents": [
+          { "type": "Work ID", "issue_date": "2023-01-01", "expiry_date": "2025-01-01" },
+          { "type": "Other", "issue_date": "2024-01-01", "expiry_date": "2024-12-31" }
+        ]
+      }
+    ]
+  }
 ]

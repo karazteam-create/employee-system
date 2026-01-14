@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "companyName": "Example Company 1",
+    "employees": [
+      {
+        "name": "Ali Hassan",
+        "nationality": "Egyptian",
+        "photo": "ali.jpg",
+        "documents": [
+          {
+            "type": "Passport",
+            "issueDate": "2022-01-01",
+            "expiryDate": "2027-01-01"
+          },
+          {
+            "type": "Work Permit",
+            "issueDate": "2023-01-01",
+            "expiryDate": "2026-01-01"
+          }
+        ]
+      },
+      {
+        "name": "Sara Mohamed",
+        "nationality": "Emirati",
+        "photo": "sara.jpg",
+        "documents": [
+          {
+            "type": "ID Card",
+            "issueDate": "2021-05-01",
+            "expiryDate": "2026-05-01"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "companyName": "Example Company 2",
+    "employees": [
+      {
+        "name": "John Doe",
+        "nationality": "American",
+        "photo": "john.jpg",
+        "documents": [
+          {
+            "type": "Passport",
+            "issueDate": "2020-06-01",
+            "expiryDate": "2025-06-01"
+          },
+          {
+            "type": "Other",
+            "issueDate": "2022-03-01",
+            "expiryDate": "2024-03-01"
+          }
+        ]
+      }
+    ]
+  }
+]

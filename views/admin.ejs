@@ -2,87 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel - Employee System</title>
+    <title>Admin - Employee System</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1>Admin Panel</h1>
 
-    <h2>Add Company</h2>
-    <form id="companyForm">
-        <input type="text" id="companyName" placeholder="Company Name" required>
-        <button type="submit">Add Company</button>
-    </form>
-
-    <h2>Add Employee</h2>
-    <form id="employeeForm">
-        <select id="companySelect" required>
-            <option value="">Select Company</option>
-            <% companies.forEach(company => { %>
-                <option value="<%= company.companyName %>"><%= company.companyName %></option>
+    <!-- نموذج رفع الوثائق -->
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+        <h2>Upload Document</h2>
+        <label for="companyId">Company:</label>
+        <select name="companyId" id="companyId" required>
+            <% companies.forEach(c => { %>
+                <option value="<%= c.id %>"><%= c.companyName %></option>
             <% }) %>
         </select>
-        <input type="text" id="empName" placeholder="Employee Name" required>
-        <input type="text" id="nationality" placeholder="Nationality" required>
-        <input type="file" id="photo" accept="image/*">
-        <button type="submit">Add Employee</button>
-    </form>
 
-    <h2>Add Document</h2>
-    <form id="documentForm">
-        <select id="empCompanySelect" required>
-            <option value="">Select Company</option>
-            <% companies.forEach(company => { %>
-                <option value="<%= company.companyName %>"><%= company.companyName %></option>
+        <label for="employeeId">Employee:</label>
+        <select name="employeeId" id="employeeId" required>
+            <% companies.forEach(c => { %>
+                <% c.employees.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.name %> (<%= c.companyName %>)</option>
+                <% }) %>
             <% }) %>
         </select>
-        <select id="empSelect" required>
-            <option value="">Select Employee</option>
-        </select>
-        <select id="docType" required>
+
+        <label for="docType">Document Type:</label>
+        <select name="docType" id="docType" required>
             <option value="Passport">Passport</option>
-            <option value="ID Card">ID Card</option>
             <option value="Work Permit">Work Permit</option>
             <option value="Other">Other</option>
         </select>
-        <input type="date" id="issueDate" required>
-        <input type="date" id="expiryDate" required>
-        <button type="submit">Add Document</button>
+
+        <label for="issueDate">Issue Date:</label>
+        <input type="date" name="issueDate" id="issueDate" required>
+
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="date" name="expiryDate" id="expiryDate" required>
+
+        <label for="document">Select File:</label>
+        <input type="file" name="document" id="document" required>
+
+        <button type="submit">Upload</button>
     </form>
 
-    <script>
-        // Populate employees when company is selected
-        const companies = <%- JSON.stringify(companies) %>;
-
-        const empCompanySelect = document.getElementById('empCompanySelect');
-        const empSelect = document.getElementById('empSelect');
-
-        empCompanySelect.addEventListener('change', () => {
-            const selectedCompany = companies.find(c => c.companyName === empCompanySelect.value);
-            empSelect.innerHTML = '<option value="">Select Employee</option>';
-            if (selectedCompany) {
-                selectedCompany.employees.forEach(emp => {
-                    const opt = document.createElement('option');
-                    opt.value = emp.name;
-                    opt.textContent = emp.name;
-                    empSelect.appendChild(opt);
-                });
-            }
-        });
-
-        // Forms (here for demo, not saving to JSON file)
-        document.getElementById('companyForm').addEventListener('submit', e => {
-            e.preventDefault();
-            alert('Company added (demo)');
-        });
-        document.getElementById('employeeForm').addEventListener('submit', e => {
-            e.preventDefault();
-            alert('Employee added (demo)');
-        });
-        document.getElementById('documentForm').addEventListener('submit', e => {
-            e.preventDefault();
-            alert('Document added (demo)');
-        });
-    </script>
 </body>
 </html>

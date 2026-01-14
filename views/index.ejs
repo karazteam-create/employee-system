@@ -1,73 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Employee System</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Employee System</h1>
-
-    <!-- فلترة حسب نوع الوثيقة -->
-    <div class="filters">
-        <label for="docFilter">Filter by Document Type:</label>
-        <select id="docFilter" onchange="filterTable()">
-            <option value="all">All</option>
-            <option value="Passport">Passport</option>
-            <option value="Work Permit">Work Permit</option>
-            <option value="Other">Other</option>
-        </select>
-    </div>
-
-    <table id="employeeTable">
-        <thead>
-            <tr>
-                <th>Company</th>
-                <th>Employee</th>
-                <th>Nationality</th>
-                <th>Document</th>
-                <th>Issue Date</th>
-                <th>Expiry Date</th>
-                <th>Days Remaining</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% companies.forEach(company => { %>
-                <% company.employees.forEach(emp => { %>
-                    <% emp.documents.forEach(doc => { 
-                        const today = new Date();
-                        const expiry = new Date(doc.expiryDate);
-                        const diffTime = expiry - today;
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    %>
-                        <tr data-doc-type="<%= doc.type %>">
-                            <td><%= company.companyName %></td>
-                            <td><%= emp.name %></td>
-                            <td><%= emp.nationality %></td>
-                            <td><%= doc.type %></td>
-                            <td><%= doc.issueDate %></td>
-                            <td><%= doc.expiryDate %></td>
-                            <td><%= diffDays %></td>
-                        </tr>
-                    <% }) %>
-                <% }) %>
-            <% }) %>
-        </tbody>
-    </table>
-
-    <script>
-        function filterTable() {
-            const filter = document.getElementById('docFilter').value;
-            const rows = document.querySelectorAll('#employeeTable tbody tr');
-
-            rows.forEach(row => {
-                if(filter === 'all' || row.dataset.docType === filter) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-    </script>
+<h1>Companies</h1>
+<table border="1">
+<tr>
+    <th>Company</th>
+    <th>Number of Employees</th>
+</tr>
+<% companies.forEach(c => { %>
+<tr>
+    <td><%= c.name %></td>
+    <td><%= c.employees %></td>
+</tr>
+<% }); %>
+</table>
 </body>
 </html>

@@ -1,38 +1,32 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const app = express();
-const PORT = process.env.PORT || 10000;
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Set view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// Load companies data
-const dataPath = path.join(__dirname, 'data', 'companies.json');
-
-function loadData() {
-    const raw = fs.readFileSync(dataPath);
-    return JSON.parse(raw);
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 20px;
 }
 
-// Routes
-app.get('/', (req, res) => {
-    const companies = loadData();
-    res.render('index', { companies });
-});
+h1 {
+    color: #333;
+    text-align: center;
+}
 
-app.get('/admin', (req, res) => {
-    const companies = loadData();
-    res.render('admin', { companies });
-});
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+}
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

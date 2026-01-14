@@ -18,9 +18,20 @@ if (fs.existsSync(companiesFile)) {
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index', { companies });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    const today = new Date();
+    const companiesWithDays = companies.map(company => {
+        const employees = company.employees.map(emp => {
+            const documents = emp.documents.map(doc => {
+                const expiry = new Date(doc.expiry_date);
+                const issue = new Date(doc.issue_date);
+                const timeDiff = expiry - today;
+                const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+                const daysAfterExpiry = daysRemaining < 0 ? daysRemaining : 0;
+                return { ...doc, daysRemaining, daysAfterExpiry, issue_date: doc.issue_date, expiry_date: doc.expiry_date };
+            });
+            return { ...emp, documents };
+        });
+        return { ...company, employees };
+    });
+    res.render('index', { companies: companiesWithDays });
 });
